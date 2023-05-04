@@ -1,7 +1,19 @@
 package by.itacademy;
 
-public class Main {
+import by.itacademy.entity.BookEntity;
+import org.hibernate.cfg.Configuration;
+
+public class HibernateRunner {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        try (var sessionFactory = new Configuration().configure().buildSessionFactory();
+             var session = sessionFactory.openSession()) {
+            var transaction = session.beginTransaction();
+
+
+            BookEntity book = session.get(BookEntity.class, 1L);
+            book.getAuthors().forEach(System.out::println);
+
+            transaction.commit();
+        }
     }
 }
