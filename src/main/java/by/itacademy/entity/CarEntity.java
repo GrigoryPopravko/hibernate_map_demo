@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "car")
-public class CarEntity {
+public class CarEntity implements BaseEntity<InternationalCarNumber> {
 
     @EmbeddedId
-    private InternationalCarNumber number;
+    private InternationalCarNumber id;
 
     @Column(name = "brand", length = 20)
     private String brand;

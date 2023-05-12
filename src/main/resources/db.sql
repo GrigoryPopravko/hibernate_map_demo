@@ -1,19 +1,22 @@
 CREATE TABLE users
 (
-    id       BIGSERIAL PRIMARY KEY,
-    email    VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(100)       NOT NULL,
-    city     VARCHAR(30)        NULL,
-    street   VARCHAR(30)        NULL,
-    building VARCHAR(10)        NULL,
-    flat     VARCHAR(10)        NULL
+    id         BIGSERIAL PRIMARY KEY,
+    email      VARCHAR(50) UNIQUE NOT NULL,
+    role       VARCHAR(10)        NOT NULL,
+    password   VARCHAR(100)       NOT NULL,
+    city       VARCHAR(30)        NULL,
+    street     VARCHAR(30)        NULL,
+    building   VARCHAR(10)        NULL,
+    flat       VARCHAR(10)        NULL,
+    created_at TIMESTAMP          NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE orders
 (
-    id      BIGSERIAL PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users (id),
-    price   INT    NOT NULL
+    id         BIGSERIAL PRIMARY KEY,
+    user_id    BIGINT    NOT NULL REFERENCES users (id),
+    price      INT       NOT NULL,
+    created_at TIMESTAMP NOT NULL
 );
 
 CREATE TABLE passport
@@ -24,8 +27,11 @@ CREATE TABLE passport
 
 CREATE TABLE book
 (
-    id    BIGSERIAL PRIMARY KEY,
-    title VARCHAR(20) UNIQUE NOT NULL
+    id     BIGSERIAL PRIMARY KEY,
+    title  VARCHAR(20) UNIQUE NOT NULL,
+    type   VARCHAR(7)         NOT NULL,
+    format VARCHAR(3)         NULL,
+    pages  INT                NULL
 );
 
 CREATE TABLE author
@@ -53,4 +59,4 @@ CREATE TABLE car
     model       VARCHAR(20) NOT NULL,
     description TEXT        NOT NULL,
     PRIMARY KEY (state, number)
-)
+);

@@ -1,10 +1,13 @@
 package by.itacademy.entity;
 
+import by.itacademy.entity.enam.Role;
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,13 +26,13 @@ import java.util.List;
 
 @Data
 @ToString(exclude = "orders")
-@EqualsAndHashCode(exclude = "orders")
+@EqualsAndHashCode(exclude = "orders", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity extends CreatableEntity implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +40,11 @@ public class UserEntity {
 
     @Column(name = "email", unique = true, length = 50)
     private String email;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", length = 10, nullable = false)
+    private Role role = Role.USER;
 
     @Column(name = "password", length = 100)
     private String password;

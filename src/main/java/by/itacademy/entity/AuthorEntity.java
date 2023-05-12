@@ -21,13 +21,13 @@ import java.util.List;
 
 @Data
 @ToString(exclude = "books")
-@EqualsAndHashCode(exclude = "books")
+@EqualsAndHashCode(exclude = "books", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "author")
-public class AuthorEntity {
+public class AuthorEntity implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
